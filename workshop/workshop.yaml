@@ -1,4 +1,4 @@
-name: Probes Sample
+name: Skaffold Sample
 
 modules:
     activate:

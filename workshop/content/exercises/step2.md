@@ -13,19 +13,6 @@ build:
     - image: {{ REGISTRY_HOST }}/springguides/demo
       buildpacks:
         builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
-        dependencies:
-          paths:
-            - pom.xml
-            - src/main/resources
-            - target/classes
-      sync:
-        manual:
-          - src: "src/main/resources/**/*"
-            dest: /workspace/BOOT-INF/classes
-            strip: src/main/resources/
-          - src: "target/classes/**/*"
-            dest: /workspace/BOOT-INF/classes
-            strip: target/classes/
 deploy:
   kubectl:
     paths:
@@ -50,7 +37,7 @@ pod/demo-658b7f4997-qfw9l        1/1       Running     0          146m
 
 NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 service/kubernetes   ClusterIP   10.43.0.1       <none>        443/TCP    2d18h
-service/demo         ClusterIP   10.43.138.213   <none>        8080/TCP   21h
+service/demo         ClusterIP   10.43.138.213   <none>        80/TCP   21h
 
 NAME                   READY     UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/demo   1/1       1            1           21h

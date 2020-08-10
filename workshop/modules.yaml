@@ -3,7 +3,7 @@ modules:
     name: Intro
     exit_sign: Start Workshop
   exercises/step1:
-    name: Add probes to a Spring Boot application
+    name: Using Skaffold with Spring Boot
   exercises/step2:
     name: Deploy the Application in Kubernetes
   finish:

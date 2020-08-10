@@ -1,62 +1,92 @@
+
 {% include "code-server/package.liquid" %}
 
-In the terminal, pop into the `demo` directory and build the app:
+First lets drop into the demo project folder:
 
 ```execute
-cd demo && ./mvnw package -U
+cd demo
 ```
 
-Then create a docker container:
+There is already a <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/k8s/deployment.yaml">basic `deployment.yaml` in the demo</span>. You can open it up and have a look (just click on the link).
+
+You could use it push the app to the cluster directly. But we are here to learn how to do that with Skaffold. So create a new `skaffold.yaml`:
+
+<pre class="pastable" data-file="/home/eduk8s/exercises/demo/skaffold.yaml">
+apiVersion: skaffold/v2beta5
+kind: Config
+build:
+  artifacts:
+    - image: {{ REGISTRY_HOST }}/springguides/demo
+      buildpacks:
+        builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
+deploy:
+  kubectl:
+    manifests:
+      - "src/k8s/*"
+</pre>
+
+Build and run the application in one go (in "dev" mode):
 
 ```execute
-./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName={{ REGISTRY_HOST }}/springguides/demo
+skaffold dev --namespace {{ session_namespace }} --port-forward
 ```
 
-You can test that the container is working:
-
-```execute
-docker run -p 8080:8080 {{ REGISTRY_HOST }}/springguides/demo
-```
-
-Sample output:
+You will see the build ticking over and also at some point some logging to tell you about the port forward:
 
 ```
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.2.1.RELEASE)
-
-2019-11-27 10:13:54.838  INFO 1 --- [           main] com.example.demo.DemoApplication         : Starting DemoApplication on 051fa7c2fe52with PID 1 (/app started by root in /)
-2019-11-27 10:13:54.842  INFO 1 --- [           main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
-2019-11-27 10:14:00.070  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-11-27 10:14:01.093  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path'/actuator'
-2019-11-27 10:14:01.809  INFO 1 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
-2019-11-27 10:14:01.816  INFO 1 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 1.793 seconds(JVM running for 2.061)
+...
+Deployments stabilized in 273.998843ms
+Watching for changes...
+Port forwarding service/demo in namespace {{ session_namespace }}, remote port 80 -> address 127.0.0.1 port 4503
+...
 ```
 
-If the Actuator endpoints are there you can test with
+Check that the application is running:
 
 ```execute-2
-curl localhost:8080/actuator/health
+kubectl get all
 ```
 
 ```
-{"status":"UP"}
+NAME                             READY     STATUS      RESTARTS   AGE
+pod/demo-658b7f4997-qfw9l        1/1       Running     0          146m
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes   ClusterIP   10.43.0.1       <none>        443/TCP    2d18h
+service/demo         ClusterIP   10.43.138.213   <none>        80/TCP   21h
+
+NAME                   READY     UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/demo   1/1       1            1           21h
+
+NAME                              DESIRED   CURRENT   READY     AGE
+replicaset.apps/demo-658b7f4997   1         1         1         21h
+d
 ```
 
-Once you are sure it is working you can kill the container:
+> TIP: Keep doing `kubectl get all` until the demo pod shows its status as "Running".
+
+The port that is being forwarded will be printed on the console. Then you can verify that the app [is running](//{{ session_namespace }}-application.{{ ingress_domain }}/actuator/health):
+
+```execute-2
+curl localhost:4503
+```
+
+```
+Hello
+```
+
+You can edit the source code and Skaffold will rebuild and redeploy. For example you could change the home endpoint in <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/main/java/com/example/demo/DemoApplication.java">the main application class</spab>. As soon as you save it the build starts and eventually you will be able to inspect the results using curl as above.
+
+When you kill Skaffold, the app is removed from the cluster:
 
 ```execute
 <ctrl-c>
 ```
 
-And push it to the local registry:
-
 ```execute
-docker push {{ REGISTRY_HOST }}/springguides/demo
+kubectl get all
 ```
 
-> NOTE: There is a Docker (v2) registry running on `{{ REGISTRY_HOST }}` port 80, just to make the tutorial work smoothly, and so you don't have to authenticate to Dockerhub. If you prefer to use Dockerhub just remove `{{ REGISTRY_HOST }}` from the container labels (or insert another registry host instead).
+```
+No resources found in {{ session_namespace }} namespace.
+```

@@ -1,74 +1,19 @@
 
 {% include "code-server/package.liquid" %}
 
-There is already a <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/k8s/deployment.yaml">basic `deployment.yaml` in the demou can open it up and have a look.
+By default Skaffold will watch all the files in your project for changes, and trigger a build if anything changes. You might have noticed that it did a bit too much work already when you edited the home endpoint. That's because it sawa a change in the source code, and then the IDE re-compiled it and created a new class file, and this was picked up as a change as well. We can fix this by being explicit in `skaffold.yaml` about the files to watch:
 
-You could use it push the app to the cluster directly. But we are here to learn how to do that with Skaffold. So create a new `skaffold.yaml`:
-
-<pre class="pastable" data-file="/home/eduk8s/exercises/demo/skaffold.yaml">
-apiVersion: skaffold/v2beta5
-kind: Config
-build:
-  artifacts:
-    - image: {{ REGISTRY_HOST }}/springguides/demo
-      buildpacks:
-        builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
-deploy:
-  kubectl:
-    paths:
-      - "src/k8s"
+<pre class="pastable" data-file="/home/eduk8s/exercises/demo/skaffold.yaml" data-yaml-path="build.artifacts[0].buildpacks>
+dependencies:
+  paths:
+    - pom.xml
+    - src/main/resources
+    - target/classes
 </pre>
 
-Build and run the application in one go (in "dev" mode):
+Restart skaffold:
 
 ```execute
-skaffold dev --port-forward
+skaffold dev --namespace {{ session_namespace }} --port-forward
 ```
-
-Check that the application is running:
-
-```execute-2
-kubectl get all
-```
-
-```
-NAME                             READY     STATUS      RESTARTS   AGE
-pod/demo-658b7f4997-qfw9l        1/1       Running     0          146m
-
-NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/kubernetes   ClusterIP   10.43.0.1       <none>        443/TCP    2d18h
-service/demo         ClusterIP   10.43.138.213   <none>        80/TCP   21h
-
-NAME                   READY     UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/demo   1/1       1            1           21h
-
-NAME                              DESIRED   CURRENT   READY     AGE
-replicaset.apps/demo-658b7f4997   1         1         1         21h
-d
-```
-
-> TIP: Keep doing `kubectl get all` until the demo pod shows its status as "Running".
-
-The port that is being forwarded will be printed on the console. Then you can verify that the app [is running](//{{ session_namespace }}-application.{{ ingress_domain }}/actuator/health):
-
-```execute-2
-curl localhost:4503/actuator/health
-```
-
-```
-{"status:"UP"}
-```
-
-When you kill Skaffold, the app is rmeoved from the cluster:
-
-```execute
-<ctrl-c>
-```
-
-```execute
-kubectl get all
-```
-
-```
-No resources found in {{ workshop_namespace }} namespace.
-```
+And now, if you make a change to one of the source files, it will cause the container to be rebuilt, but changes to other files will not trigger any action. The Kubernetes manifests are always included in the paths that Skaffold watches, so any change to `deployment.yaml` will cause a re-deploy as well.

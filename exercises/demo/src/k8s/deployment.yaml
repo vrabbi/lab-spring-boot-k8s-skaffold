@@ -14,7 +14,7 @@ spec:
         app: demo
     spec:
       imagePullSecrets:
-        - name: registry-credentials
+        - name: eduk8s-registry-credentials
       containers:
       - image: "${REGISTRY_HOST}/springguides/demo"
         name: demo

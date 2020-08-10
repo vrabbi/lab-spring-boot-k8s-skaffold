@@ -7,7 +7,7 @@ First lets drop into the demo project folder:
 cd demo
 ```
 
-There is already a <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/k8s/deployment.yaml">basic `deployment.yaml` in the demo</span>. You can open it up and have a look (just click on the link).
+There is already a <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/k8s/deployment.yaml">basic deployment YAML in the demo</span>. You can open it up and have a look (just click on the link).
 
 You could use it push the app to the cluster directly. But we are here to learn how to do that with Skaffold. So create a new `skaffold.yaml`:
 
@@ -31,7 +31,7 @@ Build and run the application in one go (in "dev" mode):
 skaffold dev --namespace {{ session_namespace }} --port-forward
 ```
 
-You will see the build ticking over and also at some point some logging to tell you about the port forward:
+You will see the build ticking over (it will take a few minutes the first time, but after that it will be quicker) and also at some point some logging to tell you about the port forward:
 
 ```
 ...
@@ -75,7 +75,7 @@ curl localhost:4503
 Hello
 ```
 
-You can edit the source code and Skaffold will rebuild and redeploy. For example you could change the home endpoint in <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/main/java/com/example/demo/DemoApplication.java">the main application class</spab>. As soon as you save it the build starts and eventually you will be able to inspect the results using curl as above.
+You can edit the source code and Skaffold will rebuild and redeploy. For example you could change the home endpoint in <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/main/java/com/example/demo/DemoApplication.java">the main application class</span>. As soon as you save it the build starts and eventually you will be able to inspect the results using curl as above.
 
 When you kill Skaffold, the app is removed from the cluster:
 
@@ -88,5 +88,8 @@ kubectl get all
 ```
 
 ```
-No resources found in {{ session_namespace }} namespace.
+NAME                       READY   STATUS        RESTARTS   AGE
+pod/demo-cbddd5b5b-qt5ml   0/1     Terminating   0          55s
 ```
+
+(Or you might see `No resources found...`.)

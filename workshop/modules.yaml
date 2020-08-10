@@ -5,7 +5,7 @@ modules:
   exercises/step1:
     name: Using Skaffold with Spring Boot
   exercises/step2:
-    name: Deploy the Application in Kubernetes
+    name: Improve the Skaffold Configuration
   finish:
     name: Workshop Summary
     exit_sign: Finish Workshop

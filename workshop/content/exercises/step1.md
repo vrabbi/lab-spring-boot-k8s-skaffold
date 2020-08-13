@@ -7,11 +7,19 @@ First lets drop into the demo project folder:
 cd demo
 ```
 
-There is already a <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/k8s/deployment.yaml">basic deployment YAML in the demo</span>. You can open it up and have a look (just click on the link).
+There is already a <basic deployment YAML in the demo:
+
+```editor:open-file
+file: exercises/demo/src/k8s/deployment.yaml
+```
+
+You can open it up and have a look (just click on the link).
 
 You could use it push the app to the cluster directly. But we are here to learn how to do that with Skaffold. So create a new `skaffold.yaml`:
 
-<pre class="pastable" data-file="/home/eduk8s/exercises/demo/skaffold.yaml">
+```editor:append-lines-to-file
+file: exercises/demo/skaffold.yaml
+value: |
 apiVersion: skaffold/v2beta5
 kind: Config
 build:
@@ -23,7 +31,7 @@ deploy:
   kubectl:
     manifests:
       - "src/k8s/*"
-</pre>
+```
 
 Build and run the application in one go (in "dev" mode):
 
@@ -75,7 +83,14 @@ curl localhost:4503
 Hello
 ```
 
-You can edit the source code and Skaffold will rebuild and redeploy. For example you could change the home endpoint in <span class="editor_link" data-file="/home/eduk8s/exercises/demo/src/main/java/com/example/demo/DemoApplication.java">the main application class</span>. As soon as you save it the build starts and eventually you will be able to inspect the results using curl as above.
+You can edit the source code and Skaffold will rebuild and redeploy. For example you could change the home endpoint in the main application class:
+
+```editor:open-file
+line: 14
+file=exercises/demo/src/main/java/com/example/demo/DemoApplication.java
+```
+
+As soon as you save it the build starts and eventually you will be able to inspect the results using curl as above.
 
 When you kill Skaffold, the app is removed from the cluster:
 

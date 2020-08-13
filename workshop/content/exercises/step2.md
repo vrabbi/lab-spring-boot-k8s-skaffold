@@ -3,12 +3,15 @@
 
 By default Skaffold will watch all the files in your project for changes, and trigger a build if anything changes. You might have noticed that it did a bit too much work already when you edited the home endpoint. That's because it saw a change in the source code, and then the IDE re-compiled it and created a new class file, and this was picked up as a change as well. We can fix this by being explicit in `skaffold.yaml` about the files to watch:
 
-<pre class="pastable" data-file="/home/eduk8s/exercises/demo/skaffold.yaml" data-yaml-path="build.artifacts[0].buildpacks">
-dependencies:
-  paths:
-    - pom.xml
-    - src/main
-</pre>
+```editor:insert-value-into-yaml
+file: exercises/demo/skaffold.yaml
+path: build.artifacts[0].buildpacks
+value:
+  dependencies:
+    paths:
+      - pom.xml
+      - src/main
+```
 
 Restart skaffold:
 

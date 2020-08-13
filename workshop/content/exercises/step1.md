@@ -20,17 +20,17 @@ You could use it push the app to the cluster directly. But we are here to learn 
 ```editor:append-lines-to-file
 file: exercises/demo/skaffold.yaml
 value: |
-apiVersion: skaffold/v2beta5
-kind: Config
-build:
-  artifacts:
-    - image: {{ REGISTRY_HOST }}/springguides/demo
-      buildpacks:
-        builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
-deploy:
-  kubectl:
-    manifests:
-      - "src/k8s/*"
+  apiVersion: skaffold/v2beta5
+  kind: Config
+  build:
+    artifacts:
+      - image: {{ REGISTRY_HOST }}/springguides/demo
+        buildpacks:
+          builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
+  deploy:
+    kubectl:
+      manifests:
+        - "src/k8s/*"
 ```
 
 Build and run the application in one go (in "dev" mode):

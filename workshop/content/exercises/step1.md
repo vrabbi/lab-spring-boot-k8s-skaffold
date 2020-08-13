@@ -87,7 +87,7 @@ You can edit the source code and Skaffold will rebuild and redeploy. For example
 
 ```editor:open-file
 line: 14
-file=exercises/demo/src/main/java/com/example/demo/DemoApplication.java
+file: exercises/demo/src/main/java/com/example/demo/DemoApplication.java
 ```
 
 As soon as you save it the build starts and eventually you will be able to inspect the results using curl as above.

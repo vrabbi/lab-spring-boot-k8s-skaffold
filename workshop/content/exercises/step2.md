@@ -19,3 +19,15 @@ Restart skaffold:
 skaffold dev --namespace {{ session_namespace }} --port-forward
 ```
 And now, if you make a change to one of the source files, it will cause the container to be rebuilt, but changes to other files will not trigger any action. The Kubernetes manifests are always included in the paths that Skaffold watches, so any change to `deployment.yaml` will cause a re-deploy as well.
+
+Test it:
+
+```execute-2
+curl localhost:4503
+```
+
+and clean up by killing Skaffold:
+
+```execute
+<ctrl-c>
+```

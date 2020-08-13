@@ -1,10 +1,10 @@
 
 {% include "code-server/package.liquid" %}
 
-First lets drop into the demo project folder:
+First lets drop into the demo project folder and make sure we can build it:
 
 ```execute
-cd demo
+cd demo && ./mvnw package
 ```
 
 There is already a <basic deployment YAML in the demo:

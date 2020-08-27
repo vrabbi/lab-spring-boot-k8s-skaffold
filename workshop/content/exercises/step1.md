@@ -24,7 +24,7 @@ Normally when deploying applications to Kubernetes we need two key things. First
 
 With this demo application we already have the latter, in what is called a Kubernetes deployment resource file.
 
-To view the deployment resource file, open the editor on the file `exercises/demo/src/k8s/deployment.yaml`.
+To view the deployment resource file, open the editor on the file `~/exercises/demo/src/k8s/deployment.yaml`.
 
 ```editor:open-file
 file: ~/exercises/demo/src/k8s/deployment.yaml
@@ -40,10 +40,10 @@ containers:
 
 At the moment that container image doesn't exist, but this is where Skaffold comes in, by coordinating the build of it for us.
 
-To instruct Skaffold as to what it needs to do, open a new file called `skaffold.yaml` with the follow content.
+To instruct Skaffold as to what it needs to do, open a new file called `~/exercises/demo/skaffold.yaml` with the follow content.
 
 ```editor:append-lines-to-file
-file: exercises/demo/skaffold.yaml
+file: ~/exercises/demo/skaffold.yaml
 text: |
   apiVersion: skaffold/v2beta5
   kind: Config

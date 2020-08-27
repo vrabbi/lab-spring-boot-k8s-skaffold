@@ -19,7 +19,7 @@ You could use it push the app to the cluster directly. But we are here to learn 
 
 ```editor:append-lines-to-file
 file: exercises/demo/skaffold.yaml
-value: |
+text: |
   apiVersion: skaffold/v2beta5
   kind: Config
   build:

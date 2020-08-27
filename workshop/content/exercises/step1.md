@@ -146,7 +146,7 @@ file: exercises/demo/src/main/java/com/example/demo/DemoApplication.java
 
 As soon as you save it the build will start. When finished and the application re-deployed, you will be able to inspect the results using curl again.
 
-```execute
+```execute-2
 curl localhost:4503
 ```
 

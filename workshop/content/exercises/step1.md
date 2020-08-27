@@ -10,7 +10,7 @@ Start a build of the application by running Maven.
 ./mvnw package
 ```
 
-This is just a standard Java build at this point to produce the required build artefacts and the application JAR.
+This is just a standard Java build at this point to produce the required build artefacts and the application JAR. Since it is the first time it is being run, it will take a few minutes.
 
 You can see the results from the build by running:
 
@@ -18,7 +18,7 @@ You can see the results from the build by running:
 tree target
 ```
 
-With the build complete, we could run the application locally from the terminal, but we will skip that and move straight on to looking at how we can use Skafold to build and deploy the application to Kubernetes as part of a developer workflow.
+With the build complete we could have run the application locally from the terminal, which is how you probably usually work on your code, but we will skip that and move straight on to looking at how we can use Skafold to build and deploy the application to Kubernetes as part of a developer workflow.
 
 Normally when deploying applications to Kubernetes we need two key things. First we need a container image, and secondly we need a description for Kubernetes of how to deploy that container image.
 
@@ -76,7 +76,7 @@ skaffold dev --namespace {{ session_namespace }} --port-forward
 
 > NOTE: The `--namespace` option is required when using this workshop environment as that is the only namespace you have access to. For your own cluster where you may have broader access, you may not require it.
 
-You will see the build for the application and container image using the buildpack start. The first time it can take a few minutes, but for subsequent builds it will be quicker as it will be able to rely on the cached build artefacts from prior builds.
+You will see the build for the application and container image using the buildpack start. The first time being built using a build pack can also take a few minutes, but for subsequent builds it will be quicker as it will be able to rely on the cached build artefacts from prior builds.
 
 When the build completes, Skaffold will not actually return as it will start monitoring for code changes.
 
@@ -121,7 +121,7 @@ d
 
 > TIP: Keep doing `kubectl get all` until the demo pod shows its status as "Running".
 
-If you were playing close attention you may have noticed we used the `--port-forward` option to the `skaffold dev` command. This instructs Skaffold set up port forwarding between the local environment and the deployed application running inside of the Kubernetes cluster. This allows you to access the application from your local environment without needing to set up an ingress or expose the application outside of the cluster via a load balancer.
+If you were playing close attention you may have noticed we used the `--port-forward` option to the `skaffold dev` command. This instructs Skaffold to set up port forwarding between the local environment and the deployed application running inside of the Kubernetes cluster. This allows you to access the application from your local environment without needing to set up an ingress or expose the application outside of the cluster via a load balancer.
 
 The port used for the port forwarding is displayed in the log output from Skaffold, in this case port 4503. To verify that the application is able to accept requests run:
 
@@ -144,7 +144,7 @@ line: 14
 file: exercises/demo/src/main/java/com/example/demo/DemoApplication.java
 ```
 
-As soon as you save it the build will start. When finished and the application redeployed, you will be able to inspect the results using curl again.
+As soon as you save it the build will start. When finished and the application re-deployed, you will be able to inspect the results using curl again.
 
 ```execute
 curl localhost:4503

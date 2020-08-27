@@ -15,6 +15,6 @@ During this workshop we will be using the command line as well as the embedded e
 name: Editor
 ```
 
-The workshop uses these action blocks for various purposes. Anytime you see such a block with the icon on the right hand side, you can click on it and it will perform the listed action for you.
+The workshop uses these action blocks for various purposes. Anytime you see such a block with an icon on the right hand side, you can click on it and it will perform the listed action for you.
 
-Although we don't use it for the workshop, web console access is provided to the Kubernetes cluster using [Octant](https://octant.dev/). To access Octant, select the **Console** tab.
+Although we don't use it for the workshop, web console access is provided to the Kubernetes cluster using [Octant](https://octant.dev/). To access Octant, select the **Console** tab. This will allow you to investigate further any deployments made to the cluster.

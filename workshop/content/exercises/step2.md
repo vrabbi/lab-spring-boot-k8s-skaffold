@@ -28,6 +28,5 @@ curl localhost:4503
 
 and clean up by killing Skaffold:
 
-```execute
-<ctrl-c>
+```terminal:interrupt
 ```

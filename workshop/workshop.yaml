@@ -1,8 +1,13 @@
-name: Skaffold Sample
+name: Using Skaffold to deploy Spring Boot on Kubernetes
 
 modules:
     activate:
-        - intro
-        - exercises/step1
-        - exercises/step2
-        - finish
+        - workshop-overview
+        - setup-environment
+        - exercises/01-building-java-locally
+        - exercises/02-configuring-skaffold
+        - exercises/03-skaffold-dev-mode
+        - exercises/04-accessing-the-app
+        - exercises/05-automatic-rebuilds
+        - exercises/06-optimizing-rebuilds
+        - workshop-summary

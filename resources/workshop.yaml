@@ -4,7 +4,7 @@ metadata:
   name: lab-spring-boot-k8s-skaffold
 spec:
   vendor: eduk8s.io
-  title: Using Skaffold to deploy a Spring Boot on Kubernetes
+  title: Using Skaffold to deploy Spring Boot on Kubernetes
   description: Use Skaffold to create a Spring Boot application and deploy it to Kubernetes
   url: https://github.com/eduk8s-labs/lab-spring-boot-k8s-skaffold
   duration: 20m

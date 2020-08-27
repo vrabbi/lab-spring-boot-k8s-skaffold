@@ -93,7 +93,7 @@ Port forwarding service/demo in namespace {{ session_namespace }}, remote port 8
 [demo-6f5d49cdf6-wtvs6 demo] 2020-08-27 11:40:00.990  INFO 1 --- [main] com.example.demo.DemoApplication         : Started DemoApplication in 7.294 seconds (JVM running for 8.769)
 ```
 
-At this point the application has been deployed to the Kubernetes cluster.
+At this point the application has been deployed to the Kubernetes cluster. The latter part of the log is actually the logs from the pod in which the application is deployed.
 
 You can check that the application is deployed by running:
 

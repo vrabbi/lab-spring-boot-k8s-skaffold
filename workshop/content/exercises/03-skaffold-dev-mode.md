@@ -37,17 +37,16 @@ This should produce output similar to:
 
 ```
 NAME                             READY     STATUS      RESTARTS   AGE
-pod/demo-658b7f4997-qfw9l        1/1       Running     0          146m
+pod/demo-658b7f4997-qfw9l        1/1       Running     0          1m
 
 NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/kubernetes   ClusterIP   10.43.0.1       <none>        443/TCP    2d18h
-service/demo         ClusterIP   10.43.138.213   <none>        80/TCP   21h
+service/demo         ClusterIP   10.43.138.213   <none>        80/TCP   1m
 
 NAME                   READY     UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/demo   1/1       1            1           21h
+deployment.apps/demo   1/1       1            1           1m
 
 NAME                              DESIRED   CURRENT   READY     AGE
-replicaset.apps/demo-658b7f4997   1         1         1         21h
+replicaset.apps/demo-658b7f4997   1         1         1         1m
 d
 ```
 

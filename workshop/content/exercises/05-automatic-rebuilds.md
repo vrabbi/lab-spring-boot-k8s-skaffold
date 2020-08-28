@@ -7,11 +7,17 @@ line: 14
 file: exercises/demo/src/main/java/com/example/demo/DemoApplication.java
 ```
 
-As soon as you save it the build will start. When finished and the application re-deployed, you will be able to inspect the results using curl again.
+Change "Hello" to "Goodbye" in the response.
+
+As soon as you save the file, back in the terminal you will see that a new build has started.
+
+When the build has finished and the application re-deployed, you will be able to inspect the results using curl again.
 
 ```execute-2
 curl localhost:4503
 ```
+
+Initially you may seen an empty reply from the application as it starts up, so keep trying.
 
 If you are done with working on the application, you can kill Skaffold.
 

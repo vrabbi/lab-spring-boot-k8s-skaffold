@@ -1,8 +1,10 @@
-Before we start, change into the `demo` directory. This holds the source code for the application we will be working with.
+Head back to the terminal now and change into the `demo` directory.
 
 ```execute
 cd ~/exercises/demo
 ```
+
+This holds the source code for the application we will be working with.
 
 Start a build of the application by running Maven.
 

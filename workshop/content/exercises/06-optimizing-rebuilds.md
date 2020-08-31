@@ -20,7 +20,7 @@ Now if you make a change to one of the source files, it will cause the container
 
 > NOTE: The Kubernetes manifests are always included in the paths that Skaffold watches, so any change to `deployment.yaml` will cause a re-deploy as well.
 
-Once the build has completed, which should be a lot quicker this time as the builder was able to used the cached build artefacts from the prior build, test the application once more by running:
+Once the build has completed, which should be a lot quicker this time as the builder was able to used the cached build artifacts from the prior build, test the application once more by running:
 
 ```execute-2
 curl localhost:4503

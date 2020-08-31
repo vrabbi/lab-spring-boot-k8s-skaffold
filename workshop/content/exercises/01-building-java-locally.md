@@ -20,4 +20,4 @@ You can see the results from the build by running:
 tree target
 ```
 
-With the build complete we could have run the application locally from the terminal, which is how you probably usually work on your code, but we will skip that and move straight on to looking at how we can use Skafold to build and deploy the application to Kubernetes as part of a developer workflow.
+With the build complete we could have run the application locally from the terminal, which is how you probably usually work on your code, but we will skip that and move straight on to looking at how we can use Skaffold to build and deploy the application to Kubernetes as part of a developer workflow.

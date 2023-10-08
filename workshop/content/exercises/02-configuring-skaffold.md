@@ -30,6 +30,8 @@ text: |
       - image: {{ registry_host }}/springguides/demo
         buildpacks:
           builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
+          env:
+            - 'BP_JVM_VERSION=11'
   deploy:
     kubectl:
       manifests:

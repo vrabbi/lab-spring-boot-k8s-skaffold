@@ -1,10 +1,15 @@
-apiVersion: training.eduk8s.io/v1alpha1
+apiVersion: training.educates.dev/v1beta1
 kind: TrainingPortal
 metadata:
-  name: lab-spring-boot-k8s-skaffold
+  name: lab-skaffold
 spec:
+  portal:
+    registration:
+      type: anonymous
+    updates:
+      workshop: true
   workshops:
-    - name: lab-spring-boot-k8s-skaffold
+    - name: lab-spring-boot-skaffold
       reserved: 1
       capacity: 5
       expires: 60m

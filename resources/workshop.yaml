@@ -1,36 +1,35 @@
-apiVersion: training.eduk8s.io/v1alpha2
+apiVersion: training.educates.dev/v1beta1
 kind: Workshop
 metadata:
-  name: lab-spring-boot-k8s-skaffold
+  name: lab-spring-boot-skaffold
 spec:
-  vendor: eduk8s.io
-  title: Using Skaffold to deploy Spring Boot on Kubernetes
-  description: Use Skaffold to create a Spring Boot application and deploy it to Kubernetes
-  url: https://github.com/eduk8s-labs/lab-spring-boot-k8s-skaffold
-  duration: 20m
-  content: 
+  content:
+    files: github.com/vrabbi/lab-spring-boot-k8s-skaffold
     image: jdk11-environment:*
-    files: github.com/eduk8s-labs/lab-spring-boot-k8s-skaffold
+  description: Use Skaffold to create a Spring Boot application and deploy it to Kubernetes
+  duration: 60m
   session:
-    budget: large
-    resources:
-      memory: 2Gi
     applications:
-      terminal:
-        enabled: true
-        layout: split
       console:
+        enabled: false
+      docker:
         enabled: true
-        vendor: octant
       editor:
         enabled: true
       registry:
         enabled: true
-      docker:
+      terminal:
         enabled: true
+        layout: split
     ingresses:
     - name: application
       port: 8080
-    #dashboards:
-    #- name: Application
-    #  url: "$(ingress_protocol)://$(session_namespace)-application.$(ingress_domain)/"      
+    namespaces:
+      budget: large
+      security:
+        policy: baseline
+    resources:
+      memory: 2Gi
+  title: Skaffold + Spring 101
+  url: https://github.com/vrabbi/lab-spring-boot-k8s-skaffold
+  vendor: TeraSky
